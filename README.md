@@ -33,40 +33,41 @@ let imgsrc = '';
 let font = '';
 let sveltecss = '';
 let sveltecode = '';
-let svelteH1 = '';
-let svelteH2 = '';
 let svelteSCRIPTADD = 'console.log("Added script");';
 
-const lines = svelte.split('\n');
+const lines = svelte.split('\n').map(line => line.trim()).filter(line => line);
+
 lines.forEach((line) => {
-  if (line.includes('!addscript')) {
+  if (line.startsWith('!addscript')) {
     sveltecode += `<script>${svelteSCRIPTADD}</script>\n`;
   }
   
   if (line.startsWith('1 ')) {
-    svelteH1 = line.split('1 ')[1];
-    sveltecode += `<h1>${svelteH1}</h1>\n`;
+    const content = line.substring(2).trim();
+    sveltecode += `<h1>${content}</h1>\n`;
   }
+
   if (line.startsWith('2 ')) {
-    svelteH2 = line.split('2 ')[1];
-    sveltecode += `<h2>${svelteH2}</h2>\n`;
+    const content = line.substring(2).trim();
+    sveltecode += `<h2>${content}</h2>\n`;
   }
   
   if (line.startsWith('img ')) {
-    imgsrc = line.split('img ')[1];
+    imgsrc = line.substring(4).trim();
     sveltecode += `<img src="${imgsrc}" alt="Image" />\n`;
   }
 
   if (line.startsWith('bg ')) {
-    const bgColor = line.split('bg ')[1];
+    const bgColor = line.substring(3).trim();
     sveltecss += `  background-color: ${bgColor};\n`;
   }
+
   if (line.startsWith('ff ')) {
-    font = line.split('ff ')[1];
+    font = line.substring(3).trim();
     sveltecss += `  font-family: ${font};\n`;
   }
 
-  if (line.includes('!addcss')) {
+  if (line.startsWith('!addcss')) {
     sveltecode += `<style>\nbody {\n${sveltecss}}\n</style>\n`;
   }
 });
