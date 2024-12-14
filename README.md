@@ -19,7 +19,9 @@ ff , ff is a short term of family font, i recommend sans-serif if you want a nic
 img , after typing img, put the image link. <br />
 # Code
 ```ts
+// example, svelte is your coding station
 let svelte = `
+  img https://private-user-images.githubusercontent.com/172193086/395806363-7f66c2e0-a695-4c66-b3ae-236aeb090ea0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzQxOTkxNzAsIm5iZiI6MTczNDE5ODg3MCwicGF0aCI6Ii8xNzIxOTMwODYvMzk1ODA2MzYzLTdmNjZjMmUwLWE2OTUtNGM2Ni1iM2FlLTIzNmFlYjA5MGVhMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMjE0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTIxNFQxNzU0MzBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04NjQ0NTg3OGM3ZDY2YTIyYmU1OTE3MDE0YjU5Y2IyZTdmZDE0MjYzMWIxZjVlNzgyMjkyZjQ1ZWRlYTg1NDVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.WFPf1LuwVnqloxysnHWq1PWRmw7gSGYu8EG1i_3CPWo
   1 Thank you for using Svelt-Plus,
   2 making developing websites easier.
 
@@ -72,7 +74,7 @@ lines.forEach((line) => {
   }
   if (line.includes('img ')) {
     imgsrc = line.split('img ')[1];
-    sveltecode += `<h5>${imgsrc}</h5>\n`;
+    sveltecode += `<img> src="${imgsrc}"</img>\n`;
   }
   ///-- css stuff
   if (line.includes('body ')) {
