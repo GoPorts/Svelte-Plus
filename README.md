@@ -19,9 +19,8 @@ ff , ff is a short term of family font, i recommend sans-serif if you want a nic
 img , after typing img, put the image link. <br />
 # Code
 ```ts
-// example, svelte is your coding station
 let svelte = `
-  img https://private-user-images.githubusercontent.com/172193086/395806363-7f66c2e0-a695-4c66-b3ae-236aeb090ea0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzQxOTkxNzAsIm5iZiI6MTczNDE5ODg3MCwicGF0aCI6Ii8xNzIxOTMwODYvMzk1ODA2MzYzLTdmNjZjMmUwLWE2OTUtNGM2Ni1iM2FlLTIzNmFlYjA5MGVhMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQxMjE0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MTIxNFQxNzU0MzBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04NjQ0NTg3OGM3ZDY2YTIyYmU1OTE3MDE0YjU5Y2IyZTdmZDE0MjYzMWIxZjVlNzgyMjkyZjQ1ZWRlYTg1NDVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.WFPf1LuwVnqloxysnHWq1PWRmw7gSGYu8EG1i_3CPWo
+  img https://github.com/user-attachments/assets/7f66c2e0-a695-4c66-b3ae-236aeb090ea0
   1 Thank you for using Svelt-Plus,
   2 making developing websites easier.
 
@@ -32,72 +31,46 @@ let svelte = `
 
 let imgsrc = '';
 let font = '';
-let css = '';
-let sveltebgc = '';
 let sveltecss = '';
 let sveltecode = '';
 let svelteH1 = '';
-let svelteSCRIPT = '';
+let svelteH2 = '';
 let svelteSCRIPTADD = 'console.log("Added script");';
-let onvalue = false;
+
 const lines = svelte.split('\n');
 lines.forEach((line) => {
-  ///
-  if (line.includes('!addcss')) {
-    sveltecode += `<style>\n${sveltecss}\n<style>\n`;
-  }
-  if (line.includes('!addscript ')) {
+  if (line.includes('!addscript')) {
     sveltecode += `<script>${svelteSCRIPTADD}</script>\n`;
   }
-  if (line.includes('!scriptfirst ')) {
-    onvalue = true;
-  }
-  if (line.includes('1 ')) {
+  
+  if (line.startsWith('1 ')) {
     svelteH1 = line.split('1 ')[1];
     sveltecode += `<h1>${svelteH1}</h1>\n`;
   }
-  if (line.includes('2 ')) {
-    svelteH1 = line.split('2 ')[1];
-    sveltecode += `<h2>${svelteH1}</h2>\n`;
+  if (line.startsWith('2 ')) {
+    svelteH2 = line.split('2 ')[1];
+    sveltecode += `<h2>${svelteH2}</h2>\n`;
   }
-  if (line.includes('3 ')) {
-    svelteH1 = line.split('3 ')[1];
-    sveltecode += `<h3>${svelteH1}</h3>\n`;
-  }
-  if (line.includes('4 ')) {
-    svelteH1 = line.split('4 ')[1];
-    sveltecode += `<h4>${svelteH1}</h4>\n`;
-  }
-  if (line.includes('5 ')) {
-    svelteH1 = line.split('5 ')[1];
-    sveltecode += `<h5>${svelteH1}</h5>\n`;
-  }
-  if (line.includes('img ')) {
+  
+  if (line.startsWith('img ')) {
     imgsrc = line.split('img ')[1];
-    sveltecode += `<img> src="${imgsrc}"</img>\n`;
+    sveltecode += `<img src="${imgsrc}" alt="Image" />\n`;
   }
-  ///-- css stuff
-  if (line.includes('body ')) {
-    sveltecss += `body\n{\n`;
+
+  if (line.startsWith('bg ')) {
+    const bgColor = line.split('bg ')[1];
+    sveltecss += `  background-color: ${bgColor};\n`;
   }
-  if (line.includes('bg ')) {
-    sveltebgc = line.split('bg ')[1];
-    sveltecss += `\nbody\n{\nbackgound-color: ${sveltebgc};\n}`;
-  }
-  if (line.includes('ff ')) {
+  if (line.startsWith('ff ')) {
     font = line.split('ff ')[1];
-    sveltecss += `\nfamily-font: ${font};}\n`;
+    sveltecss += `  font-family: ${font};\n`;
   }
-  sveltecss += `\n}`;
+
+  if (line.includes('!addcss')) {
+    sveltecode += `<style>\nbody {\n${sveltecss}}\n</style>\n`;
+  }
 });
-///-- end stuff
-if (onvalue) {
-  console.log(svelteSCRIPT);
-  console.log(sveltecode);
-  console.log(sveltecss);
-} else {
-  console.log(sveltecode);
-  console.log(sveltecode);
-  console.log(svelteSCRIPT);
-}
+
+console.log(sveltecode);
+console.log(sveltecss);
 ```
